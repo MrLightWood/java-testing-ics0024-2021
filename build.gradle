@@ -1,0 +1,46 @@
+plugins {
+    id 'org.springframework.boot' version "${spring_boot_version}"
+    id 'io.spring.dependency-management' version "${spring_dependency_version}"
+    id 'java'
+}
+
+group 'ee.taltech'
+version '1'
+
+targetCompatibility = "${java_version}"
+sourceCompatibility = "${java_version}"
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: "${spring_swagger_version}"
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: "${apache_version}"
+    implementation group: 'org.json', name: 'json', version: '20210307'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed" //, "standardOut", "standardError"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+
+        showStandardStreams = false
+    }
+}
+
+wrapper {
+    gradleVersion = "${gradle_wrapper_version}"
+}
