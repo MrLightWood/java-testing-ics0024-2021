@@ -3,9 +3,11 @@ This is a repository of team 5 (Zadrots) of TalTech Course ICS0024 (Automated te
 
 ### Project description
 
-We decided to use the following API: `https://www.alphavantage.co/documentation/#crypto-exchange`
+We decided to use the following API: [Alphavantage](`https://www.alphavantage.co/documentation/#crypto-exchange`)
 
 We are going to display weekly, monthly, and annual MIN, MAX and DIFFERENCE values.
+
+[Example API request for monthly rates.](https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=BTC&market=CNY&apikey=demo)
 
 Plan for making API:
 1. Fakhri -> weekly
