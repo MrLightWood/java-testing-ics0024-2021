@@ -3,7 +3,7 @@ This is a repository of team 5 (Zadrots) of TalTech Course ICS0024 (Automated te
 
 ### Project description
 
-We decided to use the following API: `https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=BTC&market=CNY&apikey=demo`
+We decided to use the following API: `https://www.alphavantage.co/documentation/#crypto-exchange`
 
 We are going to display weekly, monthly, and annual MIN, MAX and DIFFERENCE values.
 
