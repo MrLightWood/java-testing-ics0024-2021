@@ -1,3 +1,8 @@
 server:
   servlet:
     context-path: /api
+
+app:
+  alphavantage:
+    key: I0P6QT1WU5FUL6SG
+    url: https://www.alphavantage.co/query
