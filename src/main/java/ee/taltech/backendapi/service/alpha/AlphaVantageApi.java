@@ -14,17 +14,17 @@ public class AlphaVantageApi {
     @Autowired
     private AlphaVantageClient alphaVantageClient;
 
-    public List<DailyDataPoint> queryForMonthly() {
-        String body = alphaVantageClient.query();
+    public List<MonthlyDataPoint> queryForMonthly() {
+        String body = alphaVantageClient.query("DIGITAL_CURRENCY_MONTHLY");
         JSONObject jsonObject = new JSONObject(body);
         if (jsonObject.has("Error Message")) {
             //todo do sth about it
         }
         JSONObject cryptoToUSDRate = jsonObject.getJSONObject("Time Series (Digital Currency Monthly)");
-        List<DailyDataPoint> dataPointList = new ArrayList<>();
+        List<MonthlyDataPoint> dataPointList = new ArrayList<>();
         for (String key : cryptoToUSDRate.keySet()) {
             JSONObject dataPoint = cryptoToUSDRate.getJSONObject(key);
-            dataPointList.add(new DailyDataPoint(
+            dataPointList.add(new MonthlyDataPoint(
                             LocalDate.parse(key),
                             dataPoint.getBigDecimal("2a. high (USD)"),
                             dataPoint.getBigDecimal("3a. low (USD)")
@@ -34,4 +34,5 @@ public class AlphaVantageApi {
         System.out.println(dataPointList);
         return dataPointList;
     }
+
 }

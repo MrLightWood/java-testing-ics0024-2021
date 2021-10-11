@@ -10,6 +10,6 @@ public class IndexController {
 
     @GetMapping
     public String index(){
-        return "API is up";
+        return "Welcome to our crypto difference calculator API. BTC to USD";
     }
 }

@@ -3,19 +3,19 @@ package ee.taltech.backendapi.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class FinanceResult {
+public class CryptoResult {
 
-    private LocalDate month;
+    private LocalDate date;
     private BigDecimal low;
     private BigDecimal high;
-    private BigDecimal difference;
+    private BigDecimal absoluteDifference;
 
-    public LocalDate getMonth() {
-        return month;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setMonth(LocalDate month) {
-        this.month = month;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public BigDecimal getLow() {
@@ -34,11 +34,11 @@ public class FinanceResult {
         this.high = high;
     }
 
-    public BigDecimal getDifference() {
-        return difference;
+    public BigDecimal getAbsoluteDifference() {
+        return absoluteDifference;
     }
 
-    public void setDifference(BigDecimal difference) {
-        this.difference = difference;
+    public void setAbsoluteDifference(BigDecimal difference) {
+        this.absoluteDifference = difference;
     }
 }

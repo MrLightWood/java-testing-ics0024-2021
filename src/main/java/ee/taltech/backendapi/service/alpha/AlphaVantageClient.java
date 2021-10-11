@@ -16,10 +16,10 @@ public class AlphaVantageClient {
     @Autowired
     private AlphaVantageConfig alphaVantageConfig;
 
-    //?&apikey=WLSMUQFVDYXTJ2IH
-    public String query() {
-        String url = format("%s?function=DIGITAL_CURRENCY_MONTHLY&symbol=BTC&market=USD&apikey=%s",
+    public String query(String queryFunction) {
+        String url = format("%s?function=%s&symbol=BTC&market=USD&apikey=%s",
                 alphaVantageConfig.getUrl(),
+                queryFunction,
                 alphaVantageConfig.getKey());
         ResponseEntity<String> entity = restTemplate.getForEntity(url, String.class);
         if (!entity.getStatusCode().is2xxSuccessful()) {

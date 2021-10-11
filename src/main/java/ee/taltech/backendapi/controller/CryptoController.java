@@ -2,8 +2,8 @@ package ee.taltech.backendapi.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ee.taltech.backendapi.dto.FinanceResult;
-import ee.taltech.backendapi.service.FinanceService;
+import ee.taltech.backendapi.dto.CryptoResult;
+import ee.taltech.backendapi.service.CryptoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +19,14 @@ public class CryptoController {
     Logger logger = LoggerFactory.getLogger(CryptoController.class);
 
     @Autowired
-    private FinanceService financeService;
+    private CryptoService cryptoService;
     @Autowired
     private ObjectMapper objectMapper;
 
-    @GetMapping
-    public List<FinanceResult> dailyChange() throws JsonProcessingException {
+    @GetMapping("/monthly")
+    public List<CryptoResult> monthlyDifference() throws JsonProcessingException {
         logger.info("Requesting monthly");
-        List<FinanceResult> results = financeService.result();
+        List<CryptoResult> results = cryptoService.getMonthly();
         logger.info("Monthly change result {}", objectMapper.writeValueAsString(results));
         return results;
     }
