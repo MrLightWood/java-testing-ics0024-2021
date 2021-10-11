@@ -26,8 +26,8 @@ public class AlphaVantageApi {
             JSONObject dataPoint = cryptoToUSDRate.getJSONObject(key);
             dataPointList.add(new DataPoint(
                             LocalDate.parse(key),
-                            dataPoint.getBigDecimal("2a. high (USD)"),
-                            dataPoint.getBigDecimal("3a. low (USD)")
+                            dataPoint.getBigDecimal("3a. low (USD)"),
+                            dataPoint.getBigDecimal("2a. high (USD)")
                     )
             );
         }
@@ -47,8 +47,8 @@ public class AlphaVantageApi {
             JSONObject dataPoint = cryptoToUSDRate.getJSONObject(key);
             dataPointList.add(new DataPoint(
                             LocalDate.parse(key),
-                            dataPoint.getBigDecimal("2a. high (USD)"),
-                            dataPoint.getBigDecimal("3a. low (USD)")
+                            dataPoint.getBigDecimal("3a. low (USD)"),
+                            dataPoint.getBigDecimal("2a. high (USD)")
                     )
             );
         }

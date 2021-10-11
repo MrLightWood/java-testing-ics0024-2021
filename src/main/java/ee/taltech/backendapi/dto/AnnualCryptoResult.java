@@ -1,20 +1,19 @@
 package ee.taltech.backendapi.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
-public class CryptoResult {
-    private LocalDate date;
+public class AnnualCryptoResult {
+    private Integer year;
     private BigDecimal low;
     private BigDecimal high;
     private BigDecimal absoluteDifference;
 
-    public LocalDate getDate() {
-        return date;
+    public Integer getYear() {
+        return year;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setYear(Integer year) {
+        this.year = year;
     }
 
     public BigDecimal getLow() {
@@ -41,5 +40,3 @@ public class CryptoResult {
         this.absoluteDifference = difference;
     }
 }
-
-

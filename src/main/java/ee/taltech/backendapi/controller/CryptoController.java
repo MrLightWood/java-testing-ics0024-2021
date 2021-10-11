@@ -2,6 +2,7 @@ package ee.taltech.backendapi.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ee.taltech.backendapi.dto.AnnualCryptoResult;
 import ee.taltech.backendapi.dto.CryptoResult;
 import ee.taltech.backendapi.service.CryptoService;
 import org.slf4j.Logger;
@@ -36,6 +37,14 @@ public class CryptoController {
         logger.info("Requesting weekly");
         List<CryptoResult> results = cryptoService.getWeekly();
         logger.info("Weekly change result {}", objectMapper.writeValueAsString(results));
+        return results;
+    }
+
+    @GetMapping("/annual")
+    public List<AnnualCryptoResult> annualDifference() throws JsonProcessingException {
+        logger.info("Requesting annual");
+        List<AnnualCryptoResult> results = cryptoService.getAnnual();
+        logger.info("Annual change result {}", objectMapper.writeValueAsString(results));
         return results;
     }
 }
