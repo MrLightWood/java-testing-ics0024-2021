@@ -3,20 +3,20 @@ package ee.taltech.backendapi.service.alpha;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class MonthlyDataPoint {
+public class DataPoint {
 
-    private final LocalDate month;
+    private final LocalDate date;
     private final BigDecimal low;
     private final BigDecimal high;
 
-    public MonthlyDataPoint(LocalDate month, BigDecimal low, BigDecimal high) {
-        this.month = month;
+    public DataPoint(LocalDate date, BigDecimal low, BigDecimal high) {
+        this.date = date;
         this.low = low;
         this.high = high;
     }
 
-    public LocalDate getMonth() {
-        return month;
+    public LocalDate getDate() {
+        return date;
     }
 
     public BigDecimal getLow() {
