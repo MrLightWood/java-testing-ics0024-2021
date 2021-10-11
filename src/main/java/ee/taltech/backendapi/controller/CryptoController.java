@@ -30,4 +30,12 @@ public class CryptoController {
         logger.info("Monthly change result {}", objectMapper.writeValueAsString(results));
         return results;
     }
+
+    @GetMapping("/weekly")
+    public List<CryptoResult> weeklyDifference() throws JsonProcessingException {
+        logger.info("Requesting weekly");
+        List<CryptoResult> results = cryptoService.getWeekly();
+        logger.info("Weekly change result {}", objectMapper.writeValueAsString(results));
+        return results;
+    }
 }

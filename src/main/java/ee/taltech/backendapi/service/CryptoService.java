@@ -2,7 +2,7 @@ package ee.taltech.backendapi.service;
 
 import ee.taltech.backendapi.dto.CryptoResult;
 import ee.taltech.backendapi.service.alpha.AlphaVantageApi;
-import ee.taltech.backendapi.service.alpha.MonthlyDataPoint;
+import ee.taltech.backendapi.service.alpha.DataPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +19,22 @@ public class CryptoService {
 
     public List<CryptoResult> getMonthly(){
         List<CryptoResult> results = new ArrayList<CryptoResult>();
-        List<MonthlyDataPoint> response = alphaVantageApi.queryForMonthly();
+        List<DataPoint> response = alphaVantageApi.queryForMonthly();
 
-        for (MonthlyDataPoint month: response
+        for (DataPoint month: response
              ) {
-            results.add(cryptoCalculator.calculateMonthly(month));
+            results.add(cryptoCalculator.calculate(month));
+        }
+        return results;
+    }
+
+    public List<CryptoResult> getWeekly(){
+        List<CryptoResult> results = new ArrayList<CryptoResult>();
+        List<DataPoint> response = alphaVantageApi.queryForWeekly();
+
+        for (DataPoint week: response
+             ) {
+            results.add(cryptoCalculator.calculate(week));
         }
         return results;
     }
