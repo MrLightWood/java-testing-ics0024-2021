@@ -5,40 +5,40 @@ import java.time.LocalDate;
 
 public class FinanceResult {
 
-    private LocalDate date;
-    private BigDecimal open;
-    private BigDecimal close;
-    private BigDecimal change;
+    private LocalDate month;
+    private BigDecimal low;
+    private BigDecimal high;
+    private BigDecimal difference;
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getMonth() {
+        return month;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setMonth(LocalDate month) {
+        this.month = month;
     }
 
-    public BigDecimal getOpen() {
-        return open;
+    public BigDecimal getLow() {
+        return low;
     }
 
-    public void setOpen(BigDecimal open) {
-        this.open = open;
+    public void setLow(BigDecimal low) {
+        this.low = low;
     }
 
-    public BigDecimal getClose() {
-        return close;
+    public BigDecimal getHigh() {
+        return high;
     }
 
-    public void setClose(BigDecimal close) {
-        this.close = close;
+    public void setHigh(BigDecimal high) {
+        this.high = high;
     }
 
-    public BigDecimal getChange() {
-        return change;
+    public BigDecimal getDifference() {
+        return difference;
     }
 
-    public void setChange(BigDecimal change) {
-        this.change = change;
+    public void setDifference(BigDecimal difference) {
+        this.difference = difference;
     }
 }

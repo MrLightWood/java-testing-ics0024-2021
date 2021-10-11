@@ -4,5 +4,5 @@ server:
 
 app:
   alphavantage:
-    key: I0P6QT1WU5FUL6SG
+    key: WLSMUQFVDYXTJ2IH
     url: https://www.alphavantage.co/query

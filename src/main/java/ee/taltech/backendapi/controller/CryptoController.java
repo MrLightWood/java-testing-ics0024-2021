@@ -9,8 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RequestMapping("/crypto")
 @RestController
@@ -23,10 +24,10 @@ public class CryptoController {
     private ObjectMapper objectMapper;
 
     @GetMapping
-    public FinanceResult dailyChange(@RequestParam(defaultValue = "IBM") String stock) throws JsonProcessingException {
-        logger.info("Requesting daily change");
-        FinanceResult result = financeService.result(stock);
-        logger.info("Daily change result {}", objectMapper.writeValueAsString(result));
-        return result;
+    public List<FinanceResult> dailyChange() throws JsonProcessingException {
+        logger.info("Requesting monthly");
+        List<FinanceResult> results = financeService.result();
+        logger.info("Monthly change result {}", objectMapper.writeValueAsString(results));
+        return results;
     }
 }

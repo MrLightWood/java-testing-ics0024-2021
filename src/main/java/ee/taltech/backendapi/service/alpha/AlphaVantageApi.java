@@ -14,21 +14,24 @@ public class AlphaVantageApi {
     @Autowired
     private AlphaVantageClient alphaVantageClient;
 
-    public List<DailyDataPoint> queryForDaily(String stock) {
-        String body = alphaVantageClient.query(stock);
+    public List<DailyDataPoint> queryForMonthly() {
+        String body = alphaVantageClient.query();
         JSONObject jsonObject = new JSONObject(body);
         if (jsonObject.has("Error Message")) {
             //todo do sth about it
         }
-        JSONObject timeSeriesDaily = jsonObject.getJSONObject("Time Series (Daily)");
+        JSONObject cryptoToUSDRate = jsonObject.getJSONObject("Time Series (Digital Currency Monthly)");
         List<DailyDataPoint> dataPointList = new ArrayList<>();
-        for (String key : timeSeriesDaily.keySet()) {
-            JSONObject dataPoint = timeSeriesDaily.getJSONObject(key);
+        for (String key : cryptoToUSDRate.keySet()) {
+            JSONObject dataPoint = cryptoToUSDRate.getJSONObject(key);
             dataPointList.add(new DailyDataPoint(
-                    LocalDate.parse(key),
-                    dataPoint.getBigDecimal("1. open"),
-                    dataPoint.getBigDecimal("4. close")));
+                            LocalDate.parse(key),
+                            dataPoint.getBigDecimal("2a. high (USD)"),
+                            dataPoint.getBigDecimal("3a. low (USD)")
+                    )
+            );
         }
+        System.out.println(dataPointList);
         return dataPointList;
     }
 }
