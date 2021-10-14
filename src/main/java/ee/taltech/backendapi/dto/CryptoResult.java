@@ -1,5 +1,8 @@
 package ee.taltech.backendapi.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 

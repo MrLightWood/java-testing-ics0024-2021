@@ -20,6 +20,8 @@ dependencies {
     implementation group: 'io.springfox', name: 'springfox-boot-starter', version: "${spring_swagger_version}"
     implementation group: 'org.apache.commons', name: 'commons-collections4', version: "${apache_version}"
     implementation group: 'org.json', name: 'json', version: '20210307'
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

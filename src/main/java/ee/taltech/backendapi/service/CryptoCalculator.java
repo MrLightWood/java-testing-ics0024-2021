@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CryptoCalculator {
@@ -21,7 +21,7 @@ public class CryptoCalculator {
         return cryptoResult;
     }
 
-    public AnnualCryptoResult calculateAnnual(ArrayList<DataPoint> dataPoints) {
+    public AnnualCryptoResult calculateAnnual(List<DataPoint> dataPoints) {
         BigDecimal minimum = dataPoints.get(0).getLow();
         BigDecimal maximum = dataPoints.get(0).getHigh();
         for (DataPoint dataPoint : dataPoints
