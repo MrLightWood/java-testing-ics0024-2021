@@ -13,7 +13,6 @@ public class CryptoResult {
     private BigDecimal low;
     private BigDecimal high;
     private BigDecimal absoluteDifference;
-
 }
 
 
