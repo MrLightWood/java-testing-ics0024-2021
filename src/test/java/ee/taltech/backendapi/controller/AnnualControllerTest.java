@@ -1,4 +1,5 @@
 package ee.taltech.backendapi.controller;
+
 import static org.hamcrest.Matchers.is;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,18 +35,52 @@ class AnnualControllerTest {
     private AlphaVantageApi alphaVantageApi;
 
     @Test
-    void financeControllerMockTest() throws Exception {
+    void annualCryptoControllerForOneYear() throws Exception {
         Mockito.when(alphaVantageApi.queryForMonthly()).thenReturn(
-                List.of(new DataPoint(LocalDate.of(2020, 10, 10), BigDecimal.ONE, BigDecimal.TEN)));
+                List.of(
+                        new DataPoint(LocalDate.of(2020, 1, 31), new BigDecimal(100), new BigDecimal(1000)),
+                        new DataPoint(LocalDate.of(2020, 2, 28), new BigDecimal(10), new BigDecimal(100)),
+                        new DataPoint(LocalDate.of(2020, 3, 31), new BigDecimal(1), new BigDecimal(10))
+                )
+        );
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/annual"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].low", is(1)))
-                .andExpect(jsonPath("$[0].high", is(10)))
-                .andExpect(jsonPath("$[0].absoluteDifference", is(9.0)))
-        ;
+                .andExpect(jsonPath("$[0].high", is(1000)))
+                .andExpect(jsonPath("$[0].absoluteDifference", is(999.0)));
+    }
 
+    @Test
+    void annualCryptoControllerForThreeYears() throws Exception {
+        Mockito.when(alphaVantageApi.queryForMonthly()).thenReturn(
+                List.of(
+                        new DataPoint(LocalDate.of(2020, 1, 31), new BigDecimal(100), new BigDecimal(1000)),
+                        new DataPoint(LocalDate.of(2020, 2, 28), new BigDecimal(10), new BigDecimal(100)),
+                        new DataPoint(LocalDate.of(2020, 3, 31), new BigDecimal(1), new BigDecimal(10)),
+                        new DataPoint(LocalDate.of(2021, 1, 31), new BigDecimal(500), new BigDecimal(5000)),
+                        new DataPoint(LocalDate.of(2021, 2, 28), new BigDecimal(50), new BigDecimal(500)),
+                        new DataPoint(LocalDate.of(2021, 3, 31), new BigDecimal(5), new BigDecimal(50)),
+                        new DataPoint(LocalDate.of(2022, 1, 31), new BigDecimal(800), new BigDecimal(8000)),
+                        new DataPoint(LocalDate.of(2022, 2, 28), new BigDecimal(80), new BigDecimal(800)),
+                        new DataPoint(LocalDate.of(2022, 3, 31), new BigDecimal(8), new BigDecimal(80))
+                )
+        );
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/annual"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[0].low", is(1)))
+                .andExpect(jsonPath("$[0].high", is(1000)))
+                .andExpect(jsonPath("$[0].absoluteDifference", is(999.0)))
+                .andExpect(jsonPath("$[1].low", is(5)))
+                .andExpect(jsonPath("$[1].high", is(5000)))
+                .andExpect(jsonPath("$[1].absoluteDifference", is(4995.0)))
+                .andExpect(jsonPath("$[2].low", is(8)))
+                .andExpect(jsonPath("$[2].high", is(8000)))
+                .andExpect(jsonPath("$[2].absoluteDifference", is(7992.0)));
     }
 }
