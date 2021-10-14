@@ -26,7 +26,7 @@ public class CryptoService {
 
     public List<CryptoResult> getMonthly() {
         List<CryptoResult> results = new ArrayList<CryptoResult>();
-        List<DataPoint> response = alphaVantageApi.queryForMonthly();
+        List<DataPoint> response = alphaVantageApi.query("DIGITAL_CURRENCY_MONTHLY", "Time Series (Digital Currency Monthly)");
 
         for (DataPoint month : response
         ) {
@@ -37,7 +37,7 @@ public class CryptoService {
 
     public List<CryptoResult> getWeekly() {
         List<CryptoResult> results = new ArrayList<CryptoResult>();
-        List<DataPoint> response = alphaVantageApi.queryForWeekly();
+        List<DataPoint> response = alphaVantageApi.query("DIGITAL_CURRENCY_WEEKLY", "Time Series (Digital Currency Weekly)");
 
         for (DataPoint week : response
         ) {
@@ -48,7 +48,7 @@ public class CryptoService {
 
     public List<AnnualCryptoResult> getAnnual() {
         List<AnnualCryptoResult> results = new ArrayList<AnnualCryptoResult>();
-        List<DataPoint> response = alphaVantageApi.queryForMonthly();
+        List<DataPoint> response = alphaVantageApi.query("DIGITAL_CURRENCY_MONTHLY", "Time Series (Digital Currency Monthly)");
 
         HashMap<Integer, ArrayList<DataPoint>> years = new HashMap<Integer, ArrayList<DataPoint>>();
 

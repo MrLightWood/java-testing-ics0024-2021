@@ -36,7 +36,7 @@ class AnnualControllerTest {
 
     @Test
     void annualCryptoControllerForOneYear() throws Exception {
-        Mockito.when(alphaVantageApi.queryForMonthly()).thenReturn(
+        Mockito.when(alphaVantageApi.query("DIGITAL_CURRENCY_MONTHLY", "Time Series (Digital Currency Monthly)")).thenReturn(
                 List.of(
                         new DataPoint(LocalDate.of(2020, 1, 31), new BigDecimal(100), new BigDecimal(1000)),
                         new DataPoint(LocalDate.of(2020, 2, 28), new BigDecimal(10), new BigDecimal(100)),
@@ -55,7 +55,7 @@ class AnnualControllerTest {
 
     @Test
     void annualCryptoControllerForThreeYears() throws Exception {
-        Mockito.when(alphaVantageApi.queryForMonthly()).thenReturn(
+        Mockito.when(alphaVantageApi.query("DIGITAL_CURRENCY_MONTHLY", "Time Series (Digital Currency Monthly)")).thenReturn(
                 List.of(
                         new DataPoint(LocalDate.of(2020, 1, 31), new BigDecimal(100), new BigDecimal(1000)),
                         new DataPoint(LocalDate.of(2020, 2, 28), new BigDecimal(10), new BigDecimal(100)),
