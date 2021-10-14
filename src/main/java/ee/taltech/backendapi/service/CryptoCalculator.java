@@ -17,7 +17,7 @@ public class CryptoCalculator {
         cryptoResult.setDate(dataPoint.getDate());
         cryptoResult.setLow(dataPoint.getLow().setScale(2, RoundingMode.HALF_EVEN));
         cryptoResult.setHigh(dataPoint.getHigh().setScale(2, RoundingMode.HALF_EVEN));
-        cryptoResult.setAbsoluteDifference(calculateDifference(dataPoint));
+        cryptoResult.setAbsoluteDifference(calculateDifference(dataPoint.getLow(), dataPoint.getHigh()));
         return cryptoResult;
     }
 
@@ -38,15 +38,11 @@ public class CryptoCalculator {
         AnnualCryptoResult cryptoResult = new AnnualCryptoResult();
         cryptoResult.setHigh(maximum);
         cryptoResult.setLow(minimum);
-        cryptoResult.setAbsoluteDifference(calculateABDifference(maximum, minimum));
+        cryptoResult.setAbsoluteDifference(calculateDifference(maximum, minimum));
         return cryptoResult;
     }
 
-    BigDecimal calculateDifference(DataPoint dataPoint) {
-        return dataPoint.getHigh().subtract(dataPoint.getLow()).setScale(2, RoundingMode.HALF_EVEN).abs();
-    }
-
-    BigDecimal calculateABDifference(BigDecimal a, BigDecimal b) {
+    BigDecimal calculateDifference(BigDecimal a, BigDecimal b) {
         return a.subtract(b).setScale(2, RoundingMode.HALF_EVEN).abs();
     }
 }
