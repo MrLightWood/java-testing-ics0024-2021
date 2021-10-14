@@ -55,12 +55,8 @@ public class CryptoService {
         for (DataPoint month : response
         ) {
             int year = month.getDate().getYear();
-            if (years.get(year) != null) {
-                years.get(year).add(month);
-            } else {
-                years.put(year, new ArrayList<DataPoint>());
-                years.get(year).add(month);
-            }
+            years.computeIfAbsent(year, k -> new ArrayList<DataPoint>());
+            years.get(year).add(month);
         }
 
         for (int key : years.keySet()
