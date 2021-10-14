@@ -1,8 +1,11 @@
 package ee.taltech.backendapi.service.alpha;
 
+import lombok.Getter;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Getter
 public class DataPoint {
 
     private final LocalDate date;
@@ -15,15 +18,4 @@ public class DataPoint {
         this.high = high;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public BigDecimal getLow() {
-        return low;
-    }
-
-    public BigDecimal getHigh() {
-        return high;
-    }
 }
