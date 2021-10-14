@@ -1,5 +1,7 @@
 package ee.taltech.backendapi.controller;
+import static org.hamcrest.Matchers.is;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ee.taltech.backendapi.service.alpha.AlphaVantageApi;
 import ee.taltech.backendapi.service.alpha.DataPoint;
 import org.junit.jupiter.api.Test;
@@ -11,6 +13,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
@@ -24,6 +28,9 @@ class AnnualControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
+    private ObjectMapper objectMapper;
+
+    @MockBean
     private AlphaVantageApi alphaVantageApi;
 
     @Test
@@ -33,7 +40,12 @@ class AnnualControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/annual"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].low", is(1)))
+                .andExpect(jsonPath("$[0].high", is(10)))
+                .andExpect(jsonPath("$[0].absoluteDifference", is(9.0)))
+        ;
 
     }
 }
