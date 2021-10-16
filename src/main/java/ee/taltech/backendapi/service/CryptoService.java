@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class CryptoService {
@@ -19,24 +20,35 @@ public class CryptoService {
     @Autowired
     private AlphaVantageApi alphaVantageApi;
 
-    public List<CryptoResult> getMonthly() {
-        List<CryptoResult> results = new ArrayList<CryptoResult>();
-        List<DataPoint> response = alphaVantageApi.query("DIGITAL_CURRENCY_MONTHLY", "Time Series (Digital Currency Monthly)");
+    public List<CryptoResult> getData(String type) {
+        String requestKey = "";
+        String objectKey = "";
 
-        for (DataPoint month : response
-        ) {
-            results.add(cryptoCalculator.calculate(month));
+        switch(type.toLowerCase(Locale.ROOT))
+        {
+            case "weekly":
+                requestKey = "DIGITAL_CURRENCY_WEEKLY";
+                objectKey = "Time Series (Digital Currency Weekly)";
+                break;
+            case "monthly":
+                requestKey = "DIGITAL_CURRENCY_MONTHLY";
+                objectKey = "Time Series (Digital Currency Monthly)";
+                break;
         }
-        return results;
-    }
 
-    public List<CryptoResult> getWeekly() {
         List<CryptoResult> results = new ArrayList<CryptoResult>();
-        List<DataPoint> response = alphaVantageApi.query("DIGITAL_CURRENCY_WEEKLY", "Time Series (Digital Currency Weekly)");
+        List<DataPoint> response = alphaVantageApi.query(requestKey, objectKey);
 
-        for (DataPoint week : response
+        if(hasError(response)) {
+            CryptoResult errorObject = new CryptoResult();
+            errorObject.setError(response.get(0).getError());
+            results.add(errorObject);
+            return results;
+        }
+
+        for (DataPoint data : response
         ) {
-            results.add(cryptoCalculator.calculate(week));
+            results.add(cryptoCalculator.calculate(data));
         }
         return results;
     }
@@ -44,6 +56,13 @@ public class CryptoService {
     public List<AnnualCryptoResult> getAnnual() {
         List<AnnualCryptoResult> results = new ArrayList<AnnualCryptoResult>();
         List<DataPoint> response = alphaVantageApi.query("DIGITAL_CURRENCY_MONTHLY", "Time Series (Digital Currency Monthly)");
+
+        if(hasError(response)) {
+            AnnualCryptoResult errorObject = new AnnualCryptoResult();
+            errorObject.setError(response.get(0).getError());
+            results.add(errorObject);
+            return results;
+        }
 
         HashMap<Integer, ArrayList<DataPoint>> years = new HashMap<Integer, ArrayList<DataPoint>>();
 
@@ -64,5 +83,15 @@ public class CryptoService {
         }
 
         return results;
+    }
+
+    private boolean hasError(List<DataPoint> response) {
+        if(response.size() == 1) {
+            if(!response.get(0).getError().isEmpty()){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

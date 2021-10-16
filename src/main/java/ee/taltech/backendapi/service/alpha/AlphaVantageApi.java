@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,15 @@ public class AlphaVantageApi {
         String body = alphaVantageClient.query(requestKey);
         JSONObject jsonObject = new JSONObject(body);
         if (jsonObject.has("Error Message")) {
-            //todo do sth about it
+            List<DataPoint> errorResult = new ArrayList<>();
+            DataPoint errorObject = new DataPoint(
+                    LocalDate.now(),
+                    BigDecimal.valueOf(0),
+                    BigDecimal.valueOf(0)
+            );
+            errorObject.setError(jsonObject.getString("Error Message"));
+            errorResult.add(errorObject);
+            return errorResult;
         }
         JSONObject cryptoToUSDRate = jsonObject.getJSONObject(getObjectKey);
         List<DataPoint> dataPointList = new ArrayList<>();

@@ -13,6 +13,15 @@ public class CryptoResult {
     private BigDecimal low;
     private BigDecimal high;
     private BigDecimal absoluteDifference;
+    private String error = "";
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getError() {
+        return this.error;
+    }
 }
 
 

@@ -23,8 +23,9 @@ public class AlphaVantageClient {
                 alphaVantageConfig.getKey());
         ResponseEntity<String> entity = restTemplate.getForEntity(url, String.class);
         if (!entity.getStatusCode().is2xxSuccessful()) {
-            //todo do sth about it
+            return "{ \"Error Message\": \"Could not fetch data from API\" }";
         }
+        System.out.println(entity.getBody());
         return entity.getBody();
     }
 }

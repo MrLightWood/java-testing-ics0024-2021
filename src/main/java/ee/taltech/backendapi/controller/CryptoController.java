@@ -27,7 +27,7 @@ public class CryptoController {
     @GetMapping("/monthly")
     public List<CryptoResult> monthlyDifference() throws JsonProcessingException {
         logger.info("Requesting monthly");
-        List<CryptoResult> results = cryptoService.getMonthly();
+        List<CryptoResult> results = cryptoService.getData("monthly");
         logger.info("Monthly change result {}", objectMapper.writeValueAsString(results));
         return results;
     }
@@ -35,7 +35,7 @@ public class CryptoController {
     @GetMapping("/weekly")
     public List<CryptoResult> weeklyDifference() throws JsonProcessingException {
         logger.info("Requesting weekly");
-        List<CryptoResult> results = cryptoService.getWeekly();
+        List<CryptoResult> results = cryptoService.getData("weekly");
         logger.info("Weekly change result {}", objectMapper.writeValueAsString(results));
         return results;
     }
