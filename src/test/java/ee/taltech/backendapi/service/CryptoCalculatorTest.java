@@ -7,12 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,7 +21,7 @@ public class CryptoCalculatorTest {
     private CryptoCalculator cryptoCalculator;
 
     @Test
-    void calculateNullDataPoint() throws Exception {
+    void calculateEmptyDataPoint() throws Exception {
         DataPoint input = new DataPoint(LocalDate.now(), BigDecimal.valueOf(0), BigDecimal.valueOf(0));
         CryptoResult expected = new CryptoResult();
         expected.setDate(LocalDate.now());
@@ -78,6 +76,7 @@ public class CryptoCalculatorTest {
         assertTrue(new ReflectionEquals(expected).matches(actual));
     }
 
+    @Test
     void calculationWithNegativeAndPositiveNumbers_2() throws Exception {
         DataPoint input = new DataPoint(LocalDate.now(), BigDecimal.valueOf(15), BigDecimal.valueOf(-48));
         CryptoResult expected = new CryptoResult();
@@ -91,6 +90,7 @@ public class CryptoCalculatorTest {
         assertTrue(new ReflectionEquals(expected).matches(actual));
     }
 
+    @Test
     void calculateAnnual() throws Exception {
         List<DataPoint> input = List.of(
                 new DataPoint(
@@ -111,10 +111,9 @@ public class CryptoCalculatorTest {
         );
 
         AnnualCryptoResult expected = new AnnualCryptoResult();
-        expected.setYear(2021);
         expected.setLow(BigDecimal.valueOf(4));
         expected.setHigh(BigDecimal.valueOf(435));
-        expected.setAbsoluteDifference(BigDecimal.valueOf(431));
+        expected.setAbsoluteDifference(BigDecimal.valueOf(431.0));
 
         AnnualCryptoResult actual = cryptoCalculator.calculateAnnual(input);
         assertTrue(new ReflectionEquals(expected).matches(actual));

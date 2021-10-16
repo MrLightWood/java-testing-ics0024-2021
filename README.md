@@ -48,7 +48,7 @@ For tests, we will change the responsibilities and test each other's endpoints.
     "high": 64854,
     "absoluteDifference": 36724
   }
-}
+]
 ```
 
 ### Setup
