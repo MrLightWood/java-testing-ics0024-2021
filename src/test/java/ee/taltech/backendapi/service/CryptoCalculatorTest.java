@@ -21,7 +21,7 @@ public class CryptoCalculatorTest {
     private CryptoCalculator cryptoCalculator;
 
     @Test
-    void calculateEmptyDataPoint() throws Exception {
+    void calculateEmptyDataPoint() {
         DataPoint input = new DataPoint(LocalDate.now(), BigDecimal.valueOf(0), BigDecimal.valueOf(0));
         CryptoResult expected = new CryptoResult();
         expected.setDate(LocalDate.now());
@@ -35,7 +35,7 @@ public class CryptoCalculatorTest {
     }
 
     @Test
-    void calculationWithPositiveNumbers() throws Exception {
+    void calculationWithPositiveNumbers() {
         DataPoint input = new DataPoint(LocalDate.now(), BigDecimal.valueOf(42), BigDecimal.valueOf(777));
         CryptoResult expected = new CryptoResult();
         expected.setDate(LocalDate.now());
@@ -49,7 +49,7 @@ public class CryptoCalculatorTest {
     }
 
     @Test
-    void calculationWithNegativeNumbers() throws Exception {
+    void calculationWithNegativeNumbers() {
         DataPoint input = new DataPoint(LocalDate.now(), BigDecimal.valueOf(-145), BigDecimal.valueOf(-32));
         CryptoResult expected = new CryptoResult();
         expected.setDate(LocalDate.now());
@@ -63,7 +63,7 @@ public class CryptoCalculatorTest {
     }
 
     @Test
-    void calculationWithNegativeAndPositiveNumbers_1() throws Exception {
+    void calculationWithNegativeAndPositiveNumbers_1() {
         DataPoint input = new DataPoint(LocalDate.now(), BigDecimal.valueOf(-18), BigDecimal.valueOf(64));
         CryptoResult expected = new CryptoResult();
         expected.setDate(LocalDate.now());
@@ -77,7 +77,7 @@ public class CryptoCalculatorTest {
     }
 
     @Test
-    void calculationWithNegativeAndPositiveNumbers_2() throws Exception {
+    void calculationWithNegativeAndPositiveNumbers_2() {
         DataPoint input = new DataPoint(LocalDate.now(), BigDecimal.valueOf(15), BigDecimal.valueOf(-48));
         CryptoResult expected = new CryptoResult();
         expected.setDate(LocalDate.now());
@@ -91,7 +91,7 @@ public class CryptoCalculatorTest {
     }
 
     @Test
-    void calculateAnnual() throws Exception {
+    void calculateAnnual() {
         List<DataPoint> input = List.of(
                 new DataPoint(
                         LocalDate.now(),

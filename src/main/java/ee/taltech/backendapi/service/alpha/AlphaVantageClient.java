@@ -17,15 +17,19 @@ public class AlphaVantageClient {
     private AlphaVantageConfig alphaVantageConfig;
 
     public String query(String queryFunction) {
-        String url = format("%s?function=%s&symbol=BTC&market=USD&apikey=%s",
-                alphaVantageConfig.getUrl(),
-                queryFunction,
-                alphaVantageConfig.getKey());
-        ResponseEntity<String> entity = restTemplate.getForEntity(url, String.class);
-        if (!entity.getStatusCode().is2xxSuccessful()) {
-            return "{ \"Error Message\": \"Could not fetch data from API\" }";
+        try {
+            String url = format("%s?function=%s&symbol=BTC&market=USD&apikey=%s",
+                    alphaVantageConfig.getUrl(),
+                    queryFunction,
+                    alphaVantageConfig.getKey());
+            ResponseEntity<String> entity = restTemplate.getForEntity(url, String.class);
+            if (!entity.getStatusCode().is2xxSuccessful()) {
+                return "{\n   \"Error Message\": \"Could not fetch data from API\"\n}";
+            }
+            System.out.println(entity.getBody());
+            return entity.getBody();
+        } catch (Exception e) {
+            return "{\n   \"Error Message\": \"Could not fetch data from API\"\n}";
         }
-        System.out.println(entity.getBody());
-        return entity.getBody();
     }
 }

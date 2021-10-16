@@ -1,6 +1,5 @@
 package ee.taltech.backendapi.service;
 
-import ee.taltech.backendapi.dto.AnnualCryptoResult;
 import ee.taltech.backendapi.dto.CryptoResult;
 import ee.taltech.backendapi.service.alpha.DataPoint;
 import org.json.JSONObject;
@@ -19,7 +18,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

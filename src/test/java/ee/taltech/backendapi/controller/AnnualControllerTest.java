@@ -29,9 +29,6 @@ class AnnualControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private ObjectMapper objectMapper;
-
-    @MockBean
     private AlphaVantageApi alphaVantageApi;
 
     @Test

@@ -28,13 +28,12 @@ public class AlphaVantageApiTest {
 
     @Test
     void checkError() throws Exception {
-        //todo fix this
         String value = testData("testErrorData.json");
         when(alphaVantageClient.query(anyString())).thenReturn(value);
         List<DataPoint> dataPoints = alphaVantageApi.query("DIGITAL_CURRENCY_MONTHLY", "Time Series (Digital Currency Monthly)");
 
         assertThat(dataPoints).hasSize(1);
-        assertEquals(dataPoints.get(0).getError(), "Invalid API call. Please retry or visit the documentation (https://www.alphavantage.co/documentation/) for DIGITAL_CURRENCY_MONTHLY.");
+        assertEquals("Invalid API call. Please retry or visit the documentation (https://www.alphavantage.co/documentation/) for DIGITAL_CURRENCY_MONTHLY.", dataPoints.get(0).getError());
     }
 
     @Test
