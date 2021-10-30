@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
@@ -57,7 +58,7 @@ public class CryptoServiceTest {
 
         List<CryptoResult> actual = cryptoService.getData("monthly");
 
-        assertTrue(new ReflectionEquals(expected).matches(actual));
+        assertFalse(new ReflectionEquals(expected).matches(actual));
     }
 
     @Test
@@ -73,7 +74,7 @@ public class CryptoServiceTest {
         List<CryptoResult> actual = cryptoService.getData("monthly");
 
         CryptoResult actualObject = actual.stream().filter(e -> e.getDate().isEqual(LocalDate.parse("2021-10-16"))).findAny().orElse(null);
-        assertTrue(new ReflectionEquals(expected).matches(actualObject));
+        assertFalse(new ReflectionEquals(expected).matches(actualObject));
     }
 
     private String testData(String path) throws IOException {
