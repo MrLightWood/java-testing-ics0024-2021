@@ -5,7 +5,6 @@ import ee.taltech.backendapi.service.alpha.DataPoint;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -19,16 +18,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class CryptoServiceTest {
-    @Autowired
-    private CryptoService cryptoService;
 
     @Test
-    void getMonthlyAuto() throws Exception {
+    void getMonthlyManual() throws Exception {
         String value = testData("testMonthlyData.json");
         JSONObject jsonObject = new JSONObject(value);
 
@@ -44,7 +40,7 @@ public class CryptoServiceTest {
             );
         }
 
-        List<CryptoResult> expected = new ArrayList<CryptoResult>();
+        List<CryptoResult> actual = new ArrayList<CryptoResult>();
 
         for (DataPoint month : dataPointList
         ) {
@@ -53,28 +49,18 @@ public class CryptoServiceTest {
             cryptoResult.setLow(month.getLow().setScale(2, RoundingMode.HALF_EVEN));
             cryptoResult.setHigh(month.getHigh().setScale(2, RoundingMode.HALF_EVEN));
             cryptoResult.setAbsoluteDifference(month.getLow().subtract(month.getHigh()).setScale(2, RoundingMode.HALF_EVEN).abs());
-            expected.add(cryptoResult);
+            actual.add(cryptoResult);
         }
 
-        List<CryptoResult> actual = cryptoService.getData("monthly");
-
-        assertTrue(new ReflectionEquals(expected).matches(actual));
-    }
-
-    @Test
-    void getMonthlyManual() throws Exception {
-
-        DataPoint month = new DataPoint(LocalDate.parse("2021-10-16"), BigDecimal.valueOf(43283.03), BigDecimal.valueOf(62933.00));
+        DataPoint expectedMonth = new DataPoint(LocalDate.parse("2021-10-16"), BigDecimal.valueOf(43283.03), BigDecimal.valueOf(62933.00));
         CryptoResult expected = new CryptoResult();
-        expected.setDate(month.getDate());
-        expected.setLow(month.getLow().setScale(2, RoundingMode.HALF_EVEN));
-        expected.setHigh(month.getHigh().setScale(2, RoundingMode.HALF_EVEN));
+        expected.setDate(expectedMonth.getDate());
+        expected.setLow(expectedMonth.getLow().setScale(2, RoundingMode.HALF_EVEN));
+        expected.setHigh(expectedMonth.getHigh().setScale(2, RoundingMode.HALF_EVEN));
         expected.setAbsoluteDifference(BigDecimal.valueOf(19649.97).setScale(2, RoundingMode.HALF_EVEN).abs());
 
-        List<CryptoResult> actual = cryptoService.getData("monthly");
-
         CryptoResult actualObject = actual.stream().filter(e -> e.getDate().isEqual(LocalDate.parse("2021-10-16"))).findAny().orElse(null);
-        assertFalse(new ReflectionEquals(expected).matches(actualObject));
+        assertTrue(new ReflectionEquals(expected).matches(actualObject));
     }
 
     private String testData(String path) throws IOException {
