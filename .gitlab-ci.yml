@@ -35,7 +35,7 @@ deploy crypto:
  # tags:
  #   - crypto
   script:
-    - ssh ec2-user@cryptocalc.ml "cd ~/ics0024-2021-part1 && git pull origin main && ./gradlew assemble && sudo sudo service cryptocalcapi restart exit"
+    - ssh ec2-user@cryptocalc.ml "cd ~/ics0024-2021-part1 && git pull origin main && ./gradlew assemble && sudo sudo service cryptocalcapi restart && exit"
 #    - mkdir -p ~/api-deployment # mkdir make folder api-deployment ~/ is under current user directory so for gitlab it would be /home/gitlab/api-deployment
 #    - rm -rf ~/api-deployment/* # rm remove -rf is recursive files from api-deployment
 #    - cp -r build/libs/. ~/api-deployment # cp - copy build/libs is where
