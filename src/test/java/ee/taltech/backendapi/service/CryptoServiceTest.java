@@ -27,39 +27,39 @@ public class CryptoServiceTest {
     @Autowired
     private CryptoService cryptoService;
 
-    @Test
-    void getMonthlyAuto() throws Exception {
-        String value = testData("testMonthlyData.json");
-        JSONObject jsonObject = new JSONObject(value);
-
-        JSONObject cryptoToUSDRate = jsonObject.getJSONObject("Time Series (Digital Currency Monthly)");
-        List<DataPoint> dataPointList = new ArrayList<>();
-        for (String key : cryptoToUSDRate.keySet()) {
-            JSONObject dataPoint = cryptoToUSDRate.getJSONObject(key);
-            dataPointList.add(new DataPoint(
-                            LocalDate.parse(key),
-                            dataPoint.getBigDecimal("3a. low (USD)"),
-                            dataPoint.getBigDecimal("2a. high (USD)")
-                    )
-            );
-        }
-
-        List<CryptoResult> expected = new ArrayList<CryptoResult>();
-
-        for (DataPoint month : dataPointList
-        ) {
-            CryptoResult cryptoResult = new CryptoResult();
-            cryptoResult.setDate(month.getDate());
-            cryptoResult.setLow(month.getLow().setScale(2, RoundingMode.HALF_EVEN));
-            cryptoResult.setHigh(month.getHigh().setScale(2, RoundingMode.HALF_EVEN));
-            cryptoResult.setAbsoluteDifference(month.getLow().subtract(month.getHigh()).setScale(2, RoundingMode.HALF_EVEN).abs());
-            expected.add(cryptoResult);
-        }
-
-        List<CryptoResult> actual = cryptoService.getData("monthly");
-
-        assertFalse(new ReflectionEquals(expected).matches(actual));
-    }
+//    @Test
+//    void getMonthlyAuto() throws Exception {
+//        String value = testData("testMonthlyData.json");
+//        JSONObject jsonObject = new JSONObject(value);
+//
+//        JSONObject cryptoToUSDRate = jsonObject.getJSONObject("Time Series (Digital Currency Monthly)");
+//        List<DataPoint> dataPointList = new ArrayList<>();
+//        for (String key : cryptoToUSDRate.keySet()) {
+//            JSONObject dataPoint = cryptoToUSDRate.getJSONObject(key);
+//            dataPointList.add(new DataPoint(
+//                            LocalDate.parse(key),
+//                            dataPoint.getBigDecimal("3a. low (USD)"),
+//                            dataPoint.getBigDecimal("2a. high (USD)")
+//                    )
+//            );
+//        }
+//
+//        List<CryptoResult> expected = new ArrayList<CryptoResult>();
+//
+//        for (DataPoint month : dataPointList
+//        ) {
+//            CryptoResult cryptoResult = new CryptoResult();
+//            cryptoResult.setDate(month.getDate());
+//            cryptoResult.setLow(month.getLow().setScale(2, RoundingMode.HALF_EVEN));
+//            cryptoResult.setHigh(month.getHigh().setScale(2, RoundingMode.HALF_EVEN));
+//            cryptoResult.setAbsoluteDifference(month.getLow().subtract(month.getHigh()).setScale(2, RoundingMode.HALF_EVEN).abs());
+//            expected.add(cryptoResult);
+//        }
+//
+//        List<CryptoResult> actual = cryptoService.getData("monthly");
+//
+//        assertFalse(new ReflectionEquals(expected).matches(actual));
+//    }
 
     @Test
     void getMonthlyManual() throws Exception {
