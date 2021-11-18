@@ -18,17 +18,20 @@ public class AlphaVantageApi {
     public List<DataPoint> query(String requestKey, String getObjectKey) {
         String body = alphaVantageClient.query(requestKey);
         JSONObject jsonObject = new JSONObject(body);
-        if (jsonObject.has("Error Message")) {
-            List<DataPoint> errorResult = new ArrayList<>();
-            DataPoint errorObject = new DataPoint(
-                    LocalDate.now(),
-                    BigDecimal.valueOf(0),
-                    BigDecimal.valueOf(0)
-            );
-            errorObject.setError(jsonObject.getString("Error Message"));
-            errorResult.add(errorObject);
-            return errorResult;
+        for (String item: List.of("Error Message", "Note")) {
+            if(jsonObject.has(item)) {
+                List<DataPoint> errorResult = new ArrayList<>();
+                DataPoint errorObject = new DataPoint(
+                        LocalDate.now(),
+                        BigDecimal.valueOf(0),
+                        BigDecimal.valueOf(0)
+                );
+                errorObject.setError(jsonObject.getString(item));
+                errorResult.add(errorObject);
+                return errorResult;
+            }
         }
+
         JSONObject cryptoToUSDRate = jsonObject.getJSONObject(getObjectKey);
         List<DataPoint> dataPointList = new ArrayList<>();
         for (String key : cryptoToUSDRate.keySet()) {
