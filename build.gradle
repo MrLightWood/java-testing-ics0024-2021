@@ -51,3 +51,7 @@ test {
 wrapper {
     gradleVersion = "${gradle_wrapper_version}"
 }
+
+bootJar {
+    archiveFileName = "cryptocalc-api.jar"
+}
