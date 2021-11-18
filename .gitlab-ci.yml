@@ -26,15 +26,16 @@ test crypto:
 #    - crypto
   script:
     - ./gradlew check
-#
-#deploy crypto:
-#  stage: deploy
-#  only:
-#    refs:
-#      - main
-#  tags:
-#    - crypto
-#  script:
+
+deploy crypto:
+  stage: deploy
+  only:
+    refs:
+      - main
+  tags:
+    - crypto
+  script:
+    - ssh ec-2@cryptocalc.ml "cd /srv/crypto && git pull origin master && build && exit"
 #    - mkdir -p ~/api-deployment # mkdir make folder api-deployment ~/ is under current user directory so for gitlab it would be /home/gitlab/api-deployment
 #    - rm -rf ~/api-deployment/* # rm remove -rf is recursive files from api-deployment
 #    - cp -r build/libs/. ~/api-deployment # cp - copy build/libs is where
