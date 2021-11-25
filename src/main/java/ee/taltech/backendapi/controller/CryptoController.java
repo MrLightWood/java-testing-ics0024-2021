@@ -24,7 +24,7 @@ public class CryptoController {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @GetMapping({"/monthly", "monthly1", "monthly2"})
+    @GetMapping({"/monthly", "/monthly0"})  // feel free to add new path here for testing purposes
     public List<CryptoResult> monthlyDifference() throws JsonProcessingException {
         logger.info("Requesting monthly");
         List<CryptoResult> results = cryptoService.getData("monthly");
