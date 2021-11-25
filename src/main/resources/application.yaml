@@ -7,4 +7,5 @@ app:
     key: WLSMUQFVDYXTJ2IH
     url: https://www.alphavantage.co/query
 
-logging.file.name: /var/log/cryptocalc/
+logging.file.name: /var/log/cryptocalc/logs
+
