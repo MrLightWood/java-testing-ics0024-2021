@@ -6,4 +6,4 @@ ADD build/libs/cryptocalc-api.jar cryptocalc-api.jar
 
 ENTRYPOINT ["java", "-jar", "cryptocalc-api.jar"]
 
-EXPOSE 8080
+EXPOSE 9000

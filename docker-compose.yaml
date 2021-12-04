@@ -5,6 +5,6 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8070:8080
+      - 9010:9000
     volumes:
       - /var/log/cryptocalc_docker:/var/log/cryptocalc
