@@ -1,0 +1,23 @@
+---
+  - name: Download
+    unarchive:
+      src: https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.8.0/nginx-prometheus-exporter-0.8.0-linux-amd64.tar.gz
+      dest: /usr/local/bin
+      remote_src: yes
+
+  - name: Basic configuration
+    template:
+      src: systemd-conf
+      dest: /etc/systemd/system/prometheus-nginx-exporter.service
+    notify:
+      - Systemctl daemon-reload
+      - Restart nginx-exporter
+
+  - name: Do meta flush
+    meta: flush_handlers
+
+  - name: Start nginx-exporter
+    service:
+      name: prometheus-nginx-exporter
+      state: started
+      enabled: yes
