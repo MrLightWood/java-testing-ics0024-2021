@@ -32,7 +32,7 @@ public class CryptoController {
         return results;
     }
 
-    @GetMapping("/weekly")
+    @GetMapping({"/weekly", "/weekly2"})
     public List<CryptoResult> weeklyDifference() throws JsonProcessingException {
         logger.info("Requesting weekly");
         List<CryptoResult> results = cryptoService.getData("weekly");
